@@ -5,7 +5,7 @@ sysctl -w kernel.shmmax=17179869184
 hostname=`hostname`
 cat > /var/opt/chef-server/nginx/etc/chef_https_lb.conf << EOL
 server {
-  listen 4443;
+  listen $CHEF_PORT;
   server_name $hostname;
   access_log /var/log/chef-server/nginx/access.log opscode;
 
@@ -94,6 +94,9 @@ server {
 }
 EOL
 cd /etc/chef-server/ && tar -cvzf knife_admin_key.tar.gz admin.pem chef-validator.pem
+cat > /etc/chef-server/chef-server.rb << EOL
+nginx['ssl_port'] = $CHEF_PORT
+EOL
 chef-server-ctl restart nginx
 chef-server-ctl status >> /root/out.txt
 echo "Done!" >> /root/out.txt

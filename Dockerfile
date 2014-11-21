@@ -12,12 +12,9 @@ RUN dpkg -i chef-server*.deb
 RUN dpkg-divert --local --rename --add /sbin/initctl
 RUN ln -sf /bin/true /sbin/initctl
 
-ADD chef-server.rb /etc/chef-server/chef-server.rb
 ADD reconfigure_chef.sh /usr/local/bin/
 ADD run.sh /usr/local/bin/
 CMD rsyslogd -n
 VOLUME /root/
 VOLUME /var/log
 CMD ["run.sh"]
-
-EXPOSE 4443
