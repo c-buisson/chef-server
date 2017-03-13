@@ -1,6 +1,6 @@
 # chef-server
 
-chef-server will run Chef Server 12 in an Ubuntu Trusty 14.04 LTS container.
+chef-server will run Chef Server 12 in an Ubuntu Trusty 14.04 LTS container.<br>
 Image Size: 1.124 GB
 
 This is a fork of: [base/chef-server](https://registry.hub.docker.com/u/base/chef-server/).
@@ -20,7 +20,7 @@ $ docker run --privileged -e CHEF_PORT=443 --name chef-server -d -p 443:443 cbui
 ```
 $ docker run --privileged -e CHEF_PORT=443 --name chef-server -d -v ~/chef-logs:/var/log -v ~/install-chef-out:/root -p 443:443 cbuisson/chef-server
 ```
-
+<br>
 **Note:** By default `chef-server-ctl reconfigure` will create SSL certificates based on the container's FQDN (i.e "103d6875c1c5" which is its "CONTAINER ID"), I have changed that behiavior to always have a SSL certificate file named "chef-server.crt". You can change the certificate name by adding  `-e CONTAINER_NAME=new_name` to the `docker run` command. Remember to reflect that change in config.rb!
 
 'chef-server' or $CONTAINER_NAME **need to be resolvable by hostname!**
@@ -68,13 +68,10 @@ admin
 ```
 **Done!**
 
-##### Known issue
-`chef-manage-ctl reconfigure` needs to run in order to access the Chef webui. When this command is executed within the container, it blocks here:
-```bash
-* ruby_block[wait for redis service socket] action run
-```
-Therefore the Chef Server 12 webui isn't available at the moment, however this isn't required to use Chef since Knife is working.
+##### Note
+Chef-Server running inside a container isn't officially supported by [Chef](https://www.chef.io/about/) and as a result the webui isn't available.<br>
+However the webui is not a required since you can interact with Chef-Server with the `knife` and `chef-server-ctl` commands.
 
 ##### Tags
-v1.0: Chef Server 11
+v1.0: Chef Server 11<br>
 v2.X: Chef Server 12

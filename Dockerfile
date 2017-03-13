@@ -9,9 +9,7 @@ RUN apt-get update && \
     rm chef-server*.deb && \
     apt-get remove -y wget && \
     rm -rf /var/lib/apt/lists/*
-
-ADD configure_chef.sh /usr/local/bin/
-ADD run.sh /usr/local/bin/
+COPY run.sh configure_chef.sh /usr/local/bin/
 VOLUME /root/
 VOLUME /var/log
 CMD ["run.sh"]
