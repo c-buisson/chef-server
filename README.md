@@ -14,6 +14,9 @@ You can however change that to another port by adding `-e SSL_PORT=new_port` to 
 When Chef Server gets configured it creates an SSL certificate based on the container's FQDN (i.e "103d6875c1c5" which is the "CONTAINER ID"). This default behiavior has been changed to always produce an SSL certificate file named "chef-server.crt".  
 You can change the certificate name by adding  `-e CONTAINER_NAME=new_name` to the `docker run` command. Remember to reflect that change in config.rb!
 
+##### Logs
+`/var/log/` is accessible via a volume directory. Feel free to optionally to use it with the `docker run` command above by adding: `-v ~/chef-logs:/var/log`
+
 ##### DNS
 The container needs to be **DNS resolvable!**  
 Be sure **'chef-server'** or **$CONTAINER_NAME** is pointing to the container's IP!  
@@ -23,10 +26,14 @@ This needs to be done to match the SSL certificate name with the `chef_server_ur
 Docker command:
 
 ```bash
-$ docker run --privileged --name chef-server -d -p 443:443 cbuisson/chef-server
+$ docker run --privileged -t --name chef-server -d -p 443:443 cbuisson/chef-server
 ```
 
-2 volumes directories are available: `/root` and `/var/log`. Feel free to optionally to use them while running the `docker run` command above by adding: `-v ~/chef-logs:/var/log -v ~/install-chef-out:/root`
+Follow the installation:
+
+```bash
+$ docker logs -f chef-server
+```
 
 ## Setup knife
 
