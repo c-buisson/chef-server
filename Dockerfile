@@ -10,5 +10,5 @@ RUN apt-get update && \
     apt-get remove -y wget && \
     rm -rf /var/lib/apt/lists/*
 COPY run.sh configure_chef.sh /usr/local/bin/
-VOLUME /root /var/log
+VOLUME /var/log
 CMD ["run.sh"]
