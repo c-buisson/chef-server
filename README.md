@@ -1,7 +1,7 @@
 # chef-server
 
 chef-server will run Chef Server 12 in an Ubuntu Trusty 14.04 LTS container.  
-Image Size: 1.025 GB
+Image Size: Approximately 1GB
 
 This is a fork of: [base/chef-server](https://registry.hub.docker.com/u/base/chef-server/).
 
